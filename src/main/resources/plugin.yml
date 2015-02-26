@@ -1,0 +1,35 @@
+name: ExtremeGrassGrowing
+main: io.github.ratismal.extremegrassgrowing.ExtremeGrassGrowing
+version: 0.0.1
+depend: [Vault]
+commands:
+  extremegg:
+      description: Base EGG command
+      usage: /extremegg
+      permission: extremegg
+      permission-message: Bugger off, you don't have the rights to do that!
+  extremegg-create:
+      description: Create a game of EGG
+      usage: /extremegg-create <id> <radius>
+      permissions: extremegg.create
+      permission-message: Bugger off, you don't have the rights to do that!
+  extremegg-join:
+      description: Join a game of EGG
+      usage: /extremegg-join <id> <bet>
+      permissions: extremegg.join
+      permission-message: Bugger off, you don't have the rights to do that!
+  extremegg-list:
+      description: List all the egg-sisting EGG games
+      usage: /extremegg-list
+      permissions: extremegg.list
+      permission-message: Bugger off, you don't have the rights to do that!
+  extremegg-start:
+      description: Start a game of EGG
+      usage: /extremegg-start <id>
+      permissions: extremegg.start
+      permission-message: Bugger off, you don't have the rights to do that!
+  extremegg-remove:
+      description: Remove a game of EGG
+      usage: /extremegg-remove <id>
+      permissions: extremegg.remove
+      permission-message: Bugger off, you don't have the rights to do that!
