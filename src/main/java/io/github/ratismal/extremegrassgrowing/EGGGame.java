@@ -49,9 +49,9 @@ public class EGGGame {
 		Location loc = player.getLocation();
 		loc.setY(loc.getY() - 1);
 		String worldName = loc.getWorld().getName();
-		int xCentre = (int) loc.getX();
-		int yCentre = (int) loc.getY();
-		int zCentre = (int) loc.getZ();
+		int xCentre = loc.getBlockX();
+		int yCentre = loc.getBlockY();
+		int zCentre = loc.getBlockZ();
 		String standHere = plugin.getConfig().getString("configs.block");
 		standHere = standHere.replaceAll(" ", "_").toUpperCase();
 		if (loc.getBlock().getType() == Material.getMaterial(standHere)) {
@@ -181,7 +181,10 @@ public class EGGGame {
 	            for(int z = ((r+1) * -1); z <= (r+1); z++) {
 	            //Bukkit.broadcastMessage("(" + (loc.getBlockX() + x) + "," + (loc.getBlockZ() + z) + ")");
 	            	// Grab the current block
-	                Block b = loc.getWorld().getBlockAt((loc.getBlockX() + x), loc.getBlockY(), (loc.getBlockZ() + z));
+	            	int xX = blockX + x;
+	            	int zZ = blockZ + z;
+	            	//Bukkit.broadcastMessage("(" + xX + "," + zZ + ")");
+	                Block b = loc.getWorld().getBlockAt(xX, blockY, zZ);
 	 
 	                    b.setType(Material.AIR);
 	                
