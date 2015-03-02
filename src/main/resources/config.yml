@@ -9,13 +9,3 @@
 configs: 
          #The block type you need to stand on to make a game
   block: emerald block
-
-#===========================
-#           Data
-#===========================
-
-data:
-
-list:
-  - Hello
-  - Goodbye

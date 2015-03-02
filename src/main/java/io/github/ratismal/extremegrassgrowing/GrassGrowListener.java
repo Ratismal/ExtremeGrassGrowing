@@ -19,15 +19,15 @@ public final class GrassGrowListener implements Listener {
 
 	ExtremeGrassGrowing plugin;
 	Economy econ;
-	
+
 	public GrassGrowListener(ExtremeGrassGrowing instance) {
 		plugin = instance;
 		econ = instance.econ;
 	}
-	
+
 	@EventHandler
 	public void grassSpread(BlockSpreadEvent event) {
-		
+
 		//Bukkit.broadcastMessage("Grass has spread!");
 		Block block = event.getBlock();
 		Material blockType = block.getType();
@@ -38,18 +38,18 @@ public final class GrassGrowListener implements Listener {
 				//Bukkit.broadcastMessage(listOfStrings.get(x));
 				if (inGame.equalsIgnoreCase("true")) {
 					//Bukkit.broadcastMessage("Grass has spread... AND A GAME IS ACTIVE!");
-					
+
 					String id = listOfStrings.get(x);
-					
+
 					Location loc = block.getLocation();
-					
+
 					loc.setY(loc.getY() + 1);
 					Block block2 = loc.getBlock();
-					
+
 					int r = plugin.pdata.getInt("data." + id + ".radius");
 					int xCentre = plugin.pdata.getInt("data." + id + ".xCentre");
 					int zCentre = plugin.pdata.getInt("data." + id + ".zCentre");
-					
+
 					if (block2.getType() == Material.SIGN_POST && 
 							(loc.getX() >= xCentre - r) && (loc.getX() <= xCentre + r) && 
 							(loc.getZ() >= zCentre - r) && (loc.getZ() <= zCentre + r)) {
@@ -73,17 +73,17 @@ public final class GrassGrowListener implements Listener {
 				}
 			}
 		}
-		
-		}
-		
-		
 
-public Player gettPlayer(String name) {
-    for(Player p : Bukkit.getOnlinePlayers()) {
-        if(p.getName().equalsIgnoreCase(name))
-            return p;
-    }
-    return null;
-}
+	}
+
+
+
+	public Player gettPlayer(String name) {
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			if(p.getName().equalsIgnoreCase(name))
+				return p;
+		}
+		return null;
+	}
 
 }
