@@ -9,3 +9,7 @@
 configs: 
          #The block type you need to stand on to make a game
   block: emerald block
+         #The minimum everyone has to bet
+  min: 10.0
+         #Extra money that is automatically added to the pool
+  extra: 10.0

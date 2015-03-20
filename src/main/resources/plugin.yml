@@ -1,6 +1,6 @@
 name: ExtremeGrassGrowing
 main: io.github.ratismal.extremegrassgrowing.ExtremeGrassGrowing
-version: 0.0.5
+version: 1.0.2
 depend: [Vault]
 commands:
   extremegg:

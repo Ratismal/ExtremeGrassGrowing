@@ -1,6 +1,7 @@
 package io.github.ratismal.extremegrassgrowing;
 
 import java.util.List;
+import java.util.UUID;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -57,12 +58,29 @@ public final class GrassGrowListener implements Listener {
 						Sign sign = (Sign) block2.getState();
 						String playerName = sign.getLine(1);
 						List<String> playerList = plugin.pdata.getStringList("data." + id + ".players");
-						playerList.remove(playerName);
+						Player player = gettPlayer(playerName);
+						UUID uuid = player.getUniqueId();
+						playerList.remove("" + uuid);
+						List<String> playerListTotal = plugin.pdata.getStringList("data." + id + ".playersTotal");
+						for (x = 0; x <= playerListTotal.size() ; x++) {
+							
+							UUID uuidPlayer = UUID.fromString(playerListTotal.get(x));
+							Player players = Bukkit.getPlayer(uuidPlayer);
+							players.sendMessage(ChatColor.GOLD + "[EGG] " + playerName + " has been eliminated!");
+							
+						}
 						block2.setType(Material.AIR);
 						if (playerList.size() == 1) {
-							Player winner = gettPlayer(playerList.get(0));
+							UUID uuidWinner = UUID.fromString(playerList.get(0));
+							Player winner = Bukkit.getPlayer(uuidWinner);
 							econ.depositPlayer(winner, plugin.pdata.getDouble("data." + id + ".pool"));
-							Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + winner.getDisplayName() + ChatColor.GOLD + " has won a game of Extreme Grass Growing");
+							for (x = 0; x <= playerListTotal.size() ; x++) {
+								
+								UUID uuidPlayer = UUID.fromString(playerListTotal.get(x));
+								Player players = Bukkit.getPlayer(uuidPlayer);
+								players.sendMessage(ChatColor.GOLD + "[EGG] " + ChatColor.DARK_PURPLE + winner.getDisplayName() + ChatColor.GOLD + " has won a game of Extreme Grass Growing");
+								
+							}
 							plugin.pdata.set("data." + id + ".isEnabled", "false");
 						}
 						else {

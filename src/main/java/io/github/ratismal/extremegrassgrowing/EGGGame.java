@@ -210,6 +210,11 @@ public class EGGGame {
 			sender.sendMessage(ChatColor.DARK_RED + "You are already in this game!");
 			return;
 		}
+		double min = plugin.getConfig().getDouble("configs.min");
+		if (bet < min) {
+			sender.sendMessage(ChatColor.DARK_RED + "That's not a high enough bet! Minimum is " + min);
+			return;
+		}
 		//check if has enough money to make bet
 		if (bet > econ.getBalance(player)) {
 			sender.sendMessage(ChatColor.DARK_RED + "You don't have enough money for that!");
@@ -262,9 +267,11 @@ public class EGGGame {
 				return;
 			}
 
-			List<String> list2 = plugin.pdata.getStringList("data." + id + ".players");
-			list2.add(player.getName());
-			plugin.pdata.set("data." + id + ".players", list2);
+
+			List<String> list3 = plugin.pdata.getStringList("data." + id + ".playersTotal");
+			list3.add("" + player.getUniqueId());
+			plugin.pdata.set("data." + id + ".players", list3);
+			plugin.pdata.set("data." + id + ".playersTotal", list3);
 			plugin.pdata.set("data." + id + ".pool", plugin.pdata.getDouble("data." + id + ".pool") + bet);
 			plugin.saveFiles();
 
@@ -299,7 +306,8 @@ public class EGGGame {
 				sender.sendMessage(ChatColor.DARK_RED + "Cannot make a game of less than two!");
 				return;
 			}
-
+			double extra = plugin.getConfig().getDouble("configs.extra");
+			plugin.getConfig().set("data." + id + ".pool", plugin.getConfig().getDouble("data." + id + ".pool") + extra);
 
 			int blockX = plugin.pdata.getInt("data." + id + ".xCentre");
 			int blockY = plugin.pdata.getInt("data." + id + ".yCentre");
@@ -331,6 +339,7 @@ public class EGGGame {
 	public void leaveGame (CommandSender sender, String id) {
 
 		List<String> playerList = plugin.pdata.getStringList("data." + id + ".players");
+		List<String> playerListTotal = plugin.pdata.getStringList("data." + id + ".playersTotal");
 
 		List<String> listOfStrings = plugin.pdata.getStringList("list");
 		boolean enabled = plugin.pdata.getBoolean("data." + id + ".inGame");
@@ -345,10 +354,12 @@ public class EGGGame {
 			sender.sendMessage(ChatColor.GOLD + "Leaving game with id: " + ChatColor.AQUA + id);
 
 			Player player = (Player) sender;
-			if (playerList.contains(player.getName())) {
+			if (playerList.contains("" + player.getUniqueId())) {
 				//sender.sendMessage(ChatColor.DARK_RED + "You are already in this game!");
-				playerList.remove(player.getName());
+				playerList.remove("" + player.getUniqueId());
+				playerListTotal.remove("" + player.getUniqueId());
 				plugin.pdata.set("data." + id + ".players", playerList);
+				plugin.pdata.set("data." + id + ".playersTotal", playerListTotal);
 				plugin.saveFiles();
 
 				int blockX = plugin.pdata.getInt("data." + id + ".xCentre");
